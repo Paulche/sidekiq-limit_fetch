@@ -52,10 +52,19 @@ class Sidekiq::LimitFetch
     end
 
     def set(limit_type, limits)
+      changed_method = case limit_type
+                       when :limit
+                         :limit_changed?
+                       when :process_limit
+                         :process_limit_changed? 
+                       end
+
+
+
       limits ||= {}
       each_queue do |queue|
         limit = limits[queue.name.to_s] || limits[queue.name.to_sym]
-        queue.send "#{limit_type}=", limit unless queue.limit_changed?
+        queue.send "#{limit_type}=", limit unless queue.send changed_method
       end
     end
 

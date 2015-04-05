@@ -5,7 +5,7 @@ module Sidekiq
 
     def_delegators :lock,
       :limit,         :limit=,         :limit_changed?,
-      :process_limit, :process_limit=,
+      :process_limit, :process_limit=, :process_limit_changed?,
       :acquire,       :release,
       :pause,         :pause_for_ms,   :unpause,
       :block,         :unblock,
