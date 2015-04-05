@@ -3,7 +3,7 @@ require 'celluloid/autostart'
 require 'sidekiq/fetch'
 
 Sidekiq.logger = nil
-Sidekiq.redis = { namespace: ENV['namespace'] }
+Sidekiq.redis = { url: ENV.fetch('REDIS','redis://127.0.0.1:6379/1'), namespace: ENV['namespace'] }
 
 RSpec.configure do |config|
   config.before :each do
